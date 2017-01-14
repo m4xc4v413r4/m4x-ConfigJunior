@@ -1,8 +1,8 @@
 ## Interface: 70100
 ## Title: m4x Config Junior
 ## Notes: Load JuniorDeBoss's UI configurations
-## Version: 1.0
+## Version: 1.1
 ## Author: m4xc4v413r4
-## SavedVariablesPerCharacter: m4xhidebutton
+## SavedVariablesPerCharacter: m4xHideButton
 
 m4x-ConfigJunior.lua
