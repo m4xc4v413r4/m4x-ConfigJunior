@@ -1,7 +1,7 @@
 ## Interface: 70100
 ## Title: m4x Config Junior
-## Notes: Load JuniorDeBoss's UI configurations
-## Version: 1.1
+## Notes: Load JuniorDeBoss's Nutties UI configurations
+## Version: @project-version@
 ## Author: m4xc4v413r4
 ## SavedVariablesPerCharacter: m4xHideButton
 
