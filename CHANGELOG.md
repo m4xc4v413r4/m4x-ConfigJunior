@@ -1,12 +1,22 @@
 # Change Log
+## v1.2.1 - 2017-02-22
+### Updated
+- CV's
+
+## v1.2 - 2017-02-22
+### Added
+- System to check what addons, from the pack, the user has Enabled
+
 ## v1.1.1 - 2017-02-01
 ### Fixed
 - Updated multiple files to fix Packaging
 
 ## v1.1 - 2017-01-14
+### Updated
+- CV's
 ### Changed
-- Updated CV's
 - Button graphic
+### Fixed
 - Code cleanup
 
 ## v1.0 - 2016-12-03
