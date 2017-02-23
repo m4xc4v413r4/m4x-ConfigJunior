@@ -1,7 +1,7 @@
 # Change Log
 ## v1.2.1 - 2017-02-22
 ### Updated
-- CV's
+- SV's
 
 ## v1.2 - 2017-02-22
 ### Added
@@ -13,7 +13,7 @@
 
 ## v1.1 - 2017-01-14
 ### Updated
-- CV's
+- SV's
 ### Changed
 - Button graphic
 ### Fixed
