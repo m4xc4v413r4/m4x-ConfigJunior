@@ -1,4 +1,8 @@
 # Change Log
+## v1.2.2 - 2017-03-07
+### Updated
+- SV's
+
 ## v1.2.1 - 2017-02-22
 ### Updated
 - SV's

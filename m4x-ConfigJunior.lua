@@ -73,8 +73,6 @@ local function CreateConfig(opt)
 					["LibDualSpec-1.0"] = {
 					},
 				},
-				["profileKeys"] = {
-				},
 				["global"] = {
 					["SpellCooldowns"] = {
 						["DEATHKNIGHT"] = {
@@ -85,7 +83,7 @@ local function CreateConfig(opt)
 						},
 						["MAGE"] = {
 						},
-						["PALADIN"] = {
+						["HUNTER"] = {
 						},
 						["WARLOCK"] = {
 						},
@@ -97,11 +95,13 @@ local function CreateConfig(opt)
 						},
 						["MONK"] = {
 						},
-						["HUNTER"] = {
+						["PALADIN"] = {
 						},
 					},
 					["InternalCooldowns"] = {
 					},
+				},
+				["profileKeys"] = {
 				},
 				["profiles"] = {
 					["Junior"] = {
@@ -110,10 +110,18 @@ local function CreateConfig(opt)
 							["PlayerBuffs"] = {
 								["Type"] = "ButtonContainer",
 								["Animations"] = {
-									["AuraNew"] = {
+									["ContainerVisibility"] = {
 										["Enabled"] = true,
+										["InvisibleAlpha"] = 0.6,
+										["Animation"] = "Fade",
 										["Duration"] = 0.5,
-										["Animation"] = "FadeIn",
+										["MouseEventsWhenInactive"] = false,
+									},
+									["AuraExpiring"] = {
+										["Enabled"] = true,
+										["Duration"] = 1,
+										["Times"] = 3,
+										["Animation"] = "Flash",
 									},
 									["AuraChanging"] = {
 										["Enabled"] = true,
@@ -121,18 +129,10 @@ local function CreateConfig(opt)
 										["Scale"] = 2.5,
 										["Animation"] = "Popup",
 									},
-									["AuraExpiring"] = {
+									["AuraNew"] = {
 										["Enabled"] = true,
-										["Duration"] = 1,
-										["Animation"] = "Flash",
-										["Times"] = 3,
-									},
-									["ContainerVisibility"] = {
-										["Enabled"] = true,
-										["InvisibleAlpha"] = 0.6,
-										["Animation"] = "Fade",
 										["Duration"] = 0.5,
-										["MouseEventsWhenInactive"] = false,
+										["Animation"] = "FadeIn",
 									},
 								},
 								["Layout"] = {
@@ -157,69 +157,51 @@ local function CreateConfig(opt)
 									["DurationPosY"] = -25,
 									["ButtonSizeX"] = 36,
 									["CountOutline"] = "OUTLINE",
-									["ShowDuration"] = true,
+									["MiniBarTexture"] = "Blizzard",
 									["DurationColor"] = {
 										1, -- [1]
 										1, -- [2]
 										1, -- [3]
 										1, -- [4]
 									},
-									["Direction"] = "LEFTDOWN",
+									["ShowDuration"] = true,
 									["DurationSize"] = 10,
-									["CountPosX"] = 10,
+									["CooldownDrawEdge"] = true,
+									["CountFont"] = "Friz Quadrata TT",
+									["MiniBarOffsetY"] = -25,
+									["CountMonochrome"] = false,
+									["DurationPosX"] = 0,
+									["HorizontalSize"] = 8,
+									["CountSize"] = 10,
+									["MiniBarOffsetX"] = 0,
+									["DurationFont"] = "Friz Quadrata TT",
+									["TooltipShowClassification"] = false,
+									["TooltipShowPrefix"] = false,
+									["MiniBarStyle"] = "HORIZONTAL",
+									["ButtonSizeY"] = 36,
+									["DurationAlignment"] = "CENTER",
+									["ShowCooldown"] = false,
+									["TooltipShowAuraId"] = true,
+									["DurationLayout"] = "ABBREVSPACE",
+									["CooldownReverse"] = false,
+									["CountPosY"] = -6,
+									["ShowBorder"] = "DEBUFF",
+									["ShowCount"] = true,
+									["VerticalSize"] = 2,
+									["CooldownDisableOmniCC"] = true,
+									["MiniBarWidth"] = 8,
+									["TooltipShowCaster"] = true,
+									["MiniBarEnabled"] = false,
 									["MiniBarColor"] = {
 										1, -- [1]
 										1, -- [2]
 										1, -- [3]
 										1, -- [4]
 									},
-									["MiniBarOffsetY"] = -25,
-									["CountMonochrome"] = false,
-									["DurationPosX"] = 0,
-									["HorizontalSize"] = 8,
-									["CountSize"] = 10,
-									["MiniBarWidth"] = 8,
-									["DurationFont"] = "Friz Quadrata TT",
-									["TooltipShowClassification"] = false,
-									["VerticalSize"] = 2,
-									["ShowCount"] = true,
-									["ButtonSizeY"] = 36,
-									["DurationAlignment"] = "CENTER",
-									["ShowBorder"] = "DEBUFF",
-									["CountPosY"] = -6,
-									["DurationLayout"] = "ABBREVSPACE",
-									["CooldownReverse"] = false,
-									["TooltipShowAuraId"] = true,
-									["ShowCooldown"] = false,
-									["MiniBarStyle"] = "HORIZONTAL",
-									["TooltipShowPrefix"] = false,
-									["CooldownDisableOmniCC"] = true,
-									["MiniBarOffsetX"] = 0,
-									["TooltipShowCaster"] = true,
-									["MiniBarEnabled"] = false,
-									["CountFont"] = "Friz Quadrata TT",
-									["CooldownDrawEdge"] = true,
-									["MiniBarTexture"] = "Blizzard",
+									["CountPosX"] = 10,
+									["Direction"] = "LEFTDOWN",
 								},
-								["Order"] = {
-									["Expert"] = false,
-									["Predefined"] = "NoTimeTimeLeftDesc",
-									["Rules"] = {
-										{
-											["Args"] = {
-												["Float"] = 0,
-											},
-											["Subject"] = "ExpirationTime",
-											["Operator"] = "First",
-										}, -- [1]
-										{
-											["Args"] = {
-											},
-											["Subject"] = "ExpirationTime",
-											["Operator"] = "NumberDesc",
-										}, -- [2]
-									},
-								},
+								["Id"] = "PlayerBuffs",
 								["Sources"] = {
 									["player"] = {
 										["WEAPON"] = true,
@@ -246,18 +228,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
-														["Subject"] = "Type",
-														["Operator"] = "Equal",
 													}, -- [1]
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "None",
 														},
-														["Subject"] = "Classification",
-														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -273,18 +255,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
-														["Subject"] = "Type",
-														["Operator"] = "Equal",
 													}, -- [1]
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "Magic",
 														},
-														["Subject"] = "Classification",
-														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -300,18 +282,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
-														["Subject"] = "Type",
-														["Operator"] = "Equal",
 													}, -- [1]
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "Curse",
 														},
-														["Subject"] = "Classification",
-														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -327,18 +309,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
-														["Subject"] = "Type",
-														["Operator"] = "Equal",
 													}, -- [1]
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "Disease",
 														},
-														["Subject"] = "Classification",
-														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -354,18 +336,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
-														["Subject"] = "Type",
-														["Operator"] = "Equal",
 													}, -- [1]
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "Poison",
 														},
-														["Subject"] = "Classification",
-														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -381,11 +363,11 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HELPFUL",
 														},
-														["Subject"] = "Type",
-														["Operator"] = "Equal",
 													}, -- [1]
 												}, -- [1]
 											},
@@ -401,11 +383,11 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "WEAPON",
 														},
-														["Subject"] = "Type",
-														["Operator"] = "Equal",
 													}, -- [1]
 												}, -- [1]
 											},
@@ -418,10 +400,10 @@ local function CreateConfig(opt)
 									["Expert"] = false,
 								},
 								["Location"] = {
-									["OffsetX"] = -242.852783203125,
-									["OffsetY"] = -27.966739654541,
-									["FramePoint"] = "TOPRIGHT",
+									["OffsetX"] = -212.152984619141,
 									["RelativePoint"] = "TOPRIGHT",
+									["OffsetY"] = -31.036678314209,
+									["FramePoint"] = "TOPRIGHT",
 								},
 								["Name"] = "Player Buffs",
 								["Visibility"] = {
@@ -431,10 +413,6 @@ local function CreateConfig(opt)
 									["VisibleWhenNot"] = {
 									},
 								},
-								["Id"] = "PlayerBuffs",
-							},
-							["NAMEME"] = {
-								["Type"] = "ButtonContainer",
 								["Order"] = {
 									["Expert"] = false,
 									["Predefined"] = "NoTimeTimeLeftDesc",
@@ -454,316 +432,22 @@ local function CreateConfig(opt)
 										}, -- [2]
 									},
 								},
-								["Layout"] = {
-									["DurationOutline"] = "OUTLINE",
-									["SpaceY"] = 15,
-									["DurationFont"] = "Friz Quadrata TT",
-									["DurationMonochrome"] = false,
-									["Clickable"] = true,
-									["ShowTooltip"] = true,
-									["HorizontalSize"] = 16,
-									["MiniBarDirection"] = "HIGHSHRINK",
-									["CountAlignment"] = "CENTER",
-									["TooltipShowUnitName"] = false,
-									["MiniBarColor"] = {
-										1, -- [1]
-										1, -- [2]
-										1, -- [3]
-										1, -- [4]
-									},
-									["CountColor"] = {
-										1, -- [1]
-										1, -- [2]
-										1, -- [3]
-										1, -- [4]
-									},
-									["MiniBarLength"] = 36,
-									["DurationPosY"] = -25,
-									["ButtonSizeX"] = 36,
-									["CountOutline"] = "OUTLINE",
-									["MiniBarTexture"] = "Blizzard",
-									["VerticalSize"] = 2,
-									["Direction"] = "LEFTDOWN",
-									["DurationSize"] = 10,
-									["CooldownDrawEdge"] = true,
-									["CountFont"] = "Friz Quadrata TT",
-									["MiniBarOffsetY"] = -25,
-									["DurationPosX"] = 0,
-									["MiniBarWidth"] = 8,
-									["DynamicSize"] = false,
-									["CountSize"] = 10,
-									["MiniBarOffsetX"] = 0,
-									["Scale"] = 1,
-									["TooltipShowClassification"] = false,
-									["DurationAlignment"] = "CENTER",
-									["MiniBarStyle"] = "HORIZONTAL",
-									["ButtonSizeY"] = 36,
-									["TooltipShowPrefix"] = false,
-									["ShowCooldown"] = false,
-									["TooltipShowAuraId"] = false,
-									["DurationLayout"] = "ABBREVSPACE",
-									["CooldownReverse"] = false,
-									["CountPosY"] = -6,
-									["ShowBorder"] = "ALWAYS",
-									["ShowCount"] = true,
-									["CountMonochrome"] = false,
-									["CooldownDisableOmniCC"] = true,
-									["DurationColor"] = {
-										1, -- [1]
-										1, -- [2]
-										1, -- [3]
-										1, -- [4]
-									},
-									["TooltipShowCaster"] = true,
-									["MiniBarEnabled"] = false,
-									["ShowDuration"] = true,
-									["CountPosX"] = 10,
-									["SpaceX"] = 5,
-								},
-								["Id"] = "NAMEME",
-								["Colors"] = {
-									["Expert"] = false,
-									["DefaultColor"] = {
-										1, -- [1]
-										1, -- [2]
-										1, -- [3]
-										1, -- [4]
-									},
-									["Rules"] = {
-										{
-											["Color"] = {
-												0.8, -- [1]
-												0, -- [2]
-												0, -- [3]
-												1, -- [4]
-											},
-											["Name"] = "Unknown Debuff Type",
-											["Groups"] = {
-												{
-													{
-														["Operator"] = "Equal",
-														["Subject"] = "Type",
-														["Args"] = {
-															["String"] = "HARMFUL",
-														},
-													}, -- [1]
-													{
-														["Operator"] = "Equal",
-														["Subject"] = "Classification",
-														["Args"] = {
-															["String"] = "None",
-														},
-													}, -- [2]
-												}, -- [1]
-											},
-										}, -- [1]
-										{
-											["Color"] = {
-												0.2, -- [1]
-												0.6, -- [2]
-												1, -- [3]
-												1, -- [4]
-											},
-											["Name"] = "Debuff Type Magic",
-											["Groups"] = {
-												{
-													{
-														["Operator"] = "Equal",
-														["Subject"] = "Type",
-														["Args"] = {
-															["String"] = "HARMFUL",
-														},
-													}, -- [1]
-													{
-														["Operator"] = "Equal",
-														["Subject"] = "Classification",
-														["Args"] = {
-															["String"] = "Magic",
-														},
-													}, -- [2]
-												}, -- [1]
-											},
-										}, -- [2]
-										{
-											["Color"] = {
-												0.6, -- [1]
-												0, -- [2]
-												1, -- [3]
-												1, -- [4]
-											},
-											["Name"] = "Debuff Type Curse",
-											["Groups"] = {
-												{
-													{
-														["Operator"] = "Equal",
-														["Subject"] = "Type",
-														["Args"] = {
-															["String"] = "HARMFUL",
-														},
-													}, -- [1]
-													{
-														["Operator"] = "Equal",
-														["Subject"] = "Classification",
-														["Args"] = {
-															["String"] = "Curse",
-														},
-													}, -- [2]
-												}, -- [1]
-											},
-										}, -- [3]
-										{
-											["Color"] = {
-												0.6, -- [1]
-												0.4, -- [2]
-												0, -- [3]
-												1, -- [4]
-											},
-											["Name"] = "Debuff Type Disease",
-											["Groups"] = {
-												{
-													{
-														["Operator"] = "Equal",
-														["Subject"] = "Type",
-														["Args"] = {
-															["String"] = "HARMFUL",
-														},
-													}, -- [1]
-													{
-														["Operator"] = "Equal",
-														["Subject"] = "Classification",
-														["Args"] = {
-															["String"] = "Disease",
-														},
-													}, -- [2]
-												}, -- [1]
-											},
-										}, -- [4]
-										{
-											["Color"] = {
-												0, -- [1]
-												0.6, -- [2]
-												0, -- [3]
-												1, -- [4]
-											},
-											["Name"] = "Debuff Type Poison",
-											["Groups"] = {
-												{
-													{
-														["Operator"] = "Equal",
-														["Subject"] = "Type",
-														["Args"] = {
-															["String"] = "HARMFUL",
-														},
-													}, -- [1]
-													{
-														["Operator"] = "Equal",
-														["Subject"] = "Classification",
-														["Args"] = {
-															["String"] = "Poison",
-														},
-													}, -- [2]
-												}, -- [1]
-											},
-										}, -- [5]
-										{
-											["Color"] = {
-												1, -- [1]
-												1, -- [2]
-												1, -- [3]
-												1, -- [4]
-											},
-											["Name"] = "Buff",
-											["Groups"] = {
-												{
-													{
-														["Operator"] = "Equal",
-														["Subject"] = "Type",
-														["Args"] = {
-															["String"] = "HELPFUL",
-														},
-													}, -- [1]
-												}, -- [1]
-											},
-										}, -- [6]
-										{
-											["Color"] = {
-												1, -- [1]
-												1, -- [2]
-												1, -- [3]
-												1, -- [4]
-											},
-											["Name"] = "Weapon",
-											["Groups"] = {
-												{
-													{
-														["Operator"] = "Equal",
-														["Subject"] = "Type",
-														["Args"] = {
-															["String"] = "WEAPON",
-														},
-													}, -- [1]
-												}, -- [1]
-											},
-										}, -- [7]
-									},
-								},
-								["Filter"] = {
-									["Groups"] = {
-										{
-										}, -- [1]
-										{
-										}, -- [2]
-									},
-									["Expert"] = true,
-								},
-								["Location"] = {
-									["FramePoint"] = "CENTER",
-									["OffsetY"] = 0,
-									["OffsetX"] = 0,
-									["RelativePoint"] = "CENTER",
-								},
-								["Name"] = "NAME ME",
-								["Visibility"] = {
-									["AlwaysVisible"] = true,
-									["VisibleWhen"] = {
-									},
-									["VisibleWhenNot"] = {
-									},
-								},
-								["Animations"] = {
-									["ContainerVisibility"] = {
-										["Enabled"] = true,
-										["InvisibleAlpha"] = 0.6,
-										["Animation"] = "Fade",
-										["Duration"] = 0.5,
-										["MouseEventsWhenInactive"] = false,
-									},
-									["AuraExpiring"] = {
-										["Enabled"] = true,
-										["Duration"] = 1,
-										["Times"] = 3,
-										["Animation"] = "Flash",
-									},
-									["AuraChanging"] = {
-										["Enabled"] = true,
-										["Duration"] = 0.3,
-										["Scale"] = 2.5,
-										["Animation"] = "Popup",
-									},
-									["AuraNew"] = {
-										["Enabled"] = true,
-										["Duration"] = 0.5,
-										["Animation"] = "FadeIn",
-									},
-								},
 							},
 							["PlayerDebuffs"] = {
 								["Type"] = "ButtonContainer",
 								["Animations"] = {
-									["AuraNew"] = {
+									["ContainerVisibility"] = {
 										["Enabled"] = true,
+										["InvisibleAlpha"] = 0.6,
+										["Animation"] = "Fade",
 										["Duration"] = 0.5,
-										["Animation"] = "FadeIn",
+										["MouseEventsWhenInactive"] = false,
+									},
+									["AuraExpiring"] = {
+										["Enabled"] = true,
+										["Duration"] = 1,
+										["Times"] = 3,
+										["Animation"] = "Flash",
 									},
 									["AuraChanging"] = {
 										["Enabled"] = true,
@@ -771,18 +455,10 @@ local function CreateConfig(opt)
 										["Scale"] = 2.5,
 										["Animation"] = "Popup",
 									},
-									["AuraExpiring"] = {
+									["AuraNew"] = {
 										["Enabled"] = true,
-										["Duration"] = 1,
-										["Animation"] = "Flash",
-										["Times"] = 3,
-									},
-									["ContainerVisibility"] = {
-										["Enabled"] = true,
-										["InvisibleAlpha"] = 0.6,
-										["Animation"] = "Fade",
 										["Duration"] = 0.5,
-										["MouseEventsWhenInactive"] = false,
+										["Animation"] = "FadeIn",
 									},
 								},
 								["Layout"] = {
@@ -807,69 +483,51 @@ local function CreateConfig(opt)
 									["DurationPosY"] = -25,
 									["ButtonSizeX"] = 36,
 									["CountOutline"] = "OUTLINE",
-									["ShowDuration"] = true,
+									["MiniBarTexture"] = "Blizzard",
 									["DurationColor"] = {
 										1, -- [1]
 										1, -- [2]
 										1, -- [3]
 										1, -- [4]
 									},
-									["Direction"] = "LEFTDOWN",
+									["ShowDuration"] = true,
 									["DurationSize"] = 10,
-									["CountPosX"] = 10,
+									["CooldownDrawEdge"] = true,
+									["CountFont"] = "Friz Quadrata TT",
+									["MiniBarOffsetY"] = -25,
+									["CountMonochrome"] = false,
+									["DurationPosX"] = 0,
+									["HorizontalSize"] = 8,
+									["CountSize"] = 10,
+									["MiniBarOffsetX"] = 0,
+									["DurationFont"] = "Friz Quadrata TT",
+									["TooltipShowClassification"] = false,
+									["TooltipShowPrefix"] = false,
+									["MiniBarStyle"] = "HORIZONTAL",
+									["ButtonSizeY"] = 36,
+									["DurationAlignment"] = "CENTER",
+									["ShowCooldown"] = false,
+									["TooltipShowAuraId"] = false,
+									["DurationLayout"] = "ABBREVSPACE",
+									["CooldownReverse"] = false,
+									["CountPosY"] = -6,
+									["ShowBorder"] = "ALWAYS",
+									["ShowCount"] = true,
+									["VerticalSize"] = 2,
+									["CooldownDisableOmniCC"] = true,
+									["MiniBarWidth"] = 8,
+									["TooltipShowCaster"] = true,
+									["MiniBarEnabled"] = false,
 									["MiniBarColor"] = {
 										1, -- [1]
 										1, -- [2]
 										1, -- [3]
 										1, -- [4]
 									},
-									["MiniBarOffsetY"] = -25,
-									["CountMonochrome"] = false,
-									["DurationPosX"] = 0,
-									["HorizontalSize"] = 8,
-									["CountSize"] = 10,
-									["MiniBarWidth"] = 8,
-									["DurationFont"] = "Friz Quadrata TT",
-									["TooltipShowClassification"] = false,
-									["VerticalSize"] = 2,
-									["ShowCount"] = true,
-									["ButtonSizeY"] = 36,
-									["DurationAlignment"] = "CENTER",
-									["ShowBorder"] = "ALWAYS",
-									["CountPosY"] = -6,
-									["DurationLayout"] = "ABBREVSPACE",
-									["CooldownReverse"] = false,
-									["TooltipShowAuraId"] = false,
-									["ShowCooldown"] = false,
-									["MiniBarStyle"] = "HORIZONTAL",
-									["TooltipShowPrefix"] = false,
-									["CooldownDisableOmniCC"] = true,
-									["MiniBarOffsetX"] = 0,
-									["TooltipShowCaster"] = true,
-									["MiniBarEnabled"] = false,
-									["CountFont"] = "Friz Quadrata TT",
-									["CooldownDrawEdge"] = true,
-									["MiniBarTexture"] = "Blizzard",
+									["CountPosX"] = 10,
+									["Direction"] = "LEFTDOWN",
 								},
-								["Order"] = {
-									["Expert"] = false,
-									["Predefined"] = "NoTimeTimeLeftDesc",
-									["Rules"] = {
-										{
-											["Args"] = {
-												["Float"] = 0,
-											},
-											["Subject"] = "ExpirationTime",
-											["Operator"] = "First",
-										}, -- [1]
-										{
-											["Args"] = {
-											},
-											["Subject"] = "ExpirationTime",
-											["Operator"] = "NumberDesc",
-										}, -- [2]
-									},
-								},
+								["Id"] = "PlayerDebuffs",
 								["Sources"] = {
 									["player"] = {
 										["HARMFUL"] = true,
@@ -895,18 +553,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
-														["Subject"] = "Type",
-														["Operator"] = "Equal",
 													}, -- [1]
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "None",
 														},
-														["Subject"] = "Classification",
-														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -922,18 +580,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
-														["Subject"] = "Type",
-														["Operator"] = "Equal",
 													}, -- [1]
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "Magic",
 														},
-														["Subject"] = "Classification",
-														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -949,18 +607,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
-														["Subject"] = "Type",
-														["Operator"] = "Equal",
 													}, -- [1]
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "Curse",
 														},
-														["Subject"] = "Classification",
-														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -976,18 +634,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
-														["Subject"] = "Type",
-														["Operator"] = "Equal",
 													}, -- [1]
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "Disease",
 														},
-														["Subject"] = "Classification",
-														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -1003,18 +661,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
-														["Subject"] = "Type",
-														["Operator"] = "Equal",
 													}, -- [1]
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "Poison",
 														},
-														["Subject"] = "Classification",
-														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -1030,11 +688,11 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HELPFUL",
 														},
-														["Subject"] = "Type",
-														["Operator"] = "Equal",
 													}, -- [1]
 												}, -- [1]
 											},
@@ -1050,11 +708,11 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
+														["Operator"] = "Equal",
+														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "WEAPON",
 														},
-														["Subject"] = "Type",
-														["Operator"] = "Equal",
 													}, -- [1]
 												}, -- [1]
 											},
@@ -1067,10 +725,10 @@ local function CreateConfig(opt)
 									["Expert"] = false,
 								},
 								["Location"] = {
-									["OffsetX"] = -242.852783203125,
-									["OffsetY"] = -126.966667175293,
-									["FramePoint"] = "TOPRIGHT",
+									["OffsetX"] = -212.152847290039,
 									["RelativePoint"] = "TOPRIGHT",
+									["OffsetY"] = -130.03662109375,
+									["FramePoint"] = "TOPRIGHT",
 								},
 								["Name"] = "Player Debuffs",
 								["Visibility"] = {
@@ -1080,7 +738,25 @@ local function CreateConfig(opt)
 									["VisibleWhenNot"] = {
 									},
 								},
-								["Id"] = "PlayerDebuffs",
+								["Order"] = {
+									["Expert"] = false,
+									["Predefined"] = "NoTimeTimeLeftDesc",
+									["Rules"] = {
+										{
+											["Args"] = {
+												["Float"] = 0,
+											},
+											["Subject"] = "ExpirationTime",
+											["Operator"] = "First",
+										}, -- [1]
+										{
+											["Args"] = {
+											},
+											["Subject"] = "ExpirationTime",
+											["Operator"] = "NumberDesc",
+										}, -- [2]
+									},
+								},
 							},
 							["Procs"] = {
 								["Type"] = "ButtonContainer",
@@ -1107,7 +783,7 @@ local function CreateConfig(opt)
 									["DurationPosY"] = 25,
 									["ButtonSizeX"] = 36,
 									["CountOutline"] = "OUTLINE",
-									["CountFont"] = "Friz Quadrata TT",
+									["Direction"] = "RIGHTDOWN",
 									["DurationColor"] = {
 										1, -- [1]
 										1, -- [2]
@@ -1116,58 +792,65 @@ local function CreateConfig(opt)
 									},
 									["ShowDuration"] = true,
 									["DurationSize"] = 12,
-									["CooldownDrawEdge"] = true,
-									["CountMonochrome"] = false,
-									["MiniBarOffsetY"] = -25,
-									["DynamicSize"] = false,
-									["MiniBarOffsetX"] = 0,
-									["SpaceX"] = 0,
-									["CountSize"] = 10,
-									["DurationPosX"] = 0,
-									["Scale"] = 1,
-									["TooltipShowClassification"] = false,
-									["TooltipShowPrefix"] = false,
-									["MiniBarStyle"] = "HORIZONTAL",
-									["ButtonSizeY"] = 36,
-									["DurationAlignment"] = "CENTER",
-									["ShowCooldown"] = false,
-									["TooltipShowAuraId"] = false,
-									["DurationLayout"] = "ABBREVSPACE",
-									["CooldownReverse"] = false,
-									["CountPosY"] = -6,
-									["ShowBorder"] = "DEBUFF",
-									["ShowCount"] = true,
-									["VerticalSize"] = 1,
-									["CooldownDisableOmniCC"] = true,
-									["MiniBarWidth"] = 8,
-									["TooltipShowCaster"] = true,
-									["MiniBarEnabled"] = false,
+									["CountPosX"] = 10,
 									["MiniBarColor"] = {
 										1, -- [1]
 										1, -- [2]
 										1, -- [3]
 										1, -- [4]
 									},
-									["CountPosX"] = 10,
-									["Direction"] = "RIGHTDOWN",
+									["MiniBarOffsetY"] = -25,
+									["DynamicSize"] = false,
+									["MiniBarOffsetX"] = 0,
+									["SpaceX"] = 0,
+									["CountSize"] = 10,
+									["MiniBarWidth"] = 8,
+									["Scale"] = 1,
+									["TooltipShowClassification"] = false,
+									["VerticalSize"] = 1,
+									["ShowCount"] = true,
+									["ButtonSizeY"] = 36,
+									["TooltipShowPrefix"] = false,
+									["ShowBorder"] = "DEBUFF",
+									["CountPosY"] = -6,
+									["DurationLayout"] = "ABBREVSPACE",
+									["CooldownReverse"] = false,
+									["TooltipShowAuraId"] = false,
+									["ShowCooldown"] = false,
+									["MiniBarStyle"] = "HORIZONTAL",
+									["DurationAlignment"] = "CENTER",
+									["CooldownDisableOmniCC"] = true,
+									["DurationPosX"] = 0,
+									["TooltipShowCaster"] = true,
+									["MiniBarEnabled"] = false,
+									["CountMonochrome"] = false,
+									["CooldownDrawEdge"] = true,
+									["CountFont"] = "Friz Quadrata TT",
 								},
-								["Order"] = {
-									["Expert"] = false,
-									["Predefined"] = "NoTimeTimeLeftDesc",
-									["Rules"] = {
-										{
-											["Args"] = {
-												["Float"] = 0,
-											},
-											["Subject"] = "ExpirationTime",
-											["Operator"] = "First",
-										}, -- [1]
-										{
-											["Args"] = {
-											},
-											["Subject"] = "ExpirationTime",
-											["Operator"] = "NumberDesc",
-										}, -- [2]
+								["Animations"] = {
+									["AuraNew"] = {
+										["Enabled"] = true,
+										["Duration"] = 0.5,
+										["Animation"] = "FadeIn",
+									},
+									["AuraChanging"] = {
+										["Enabled"] = true,
+										["Duration"] = 0.3,
+										["Scale"] = 2.5,
+										["Animation"] = "Popup",
+									},
+									["AuraExpiring"] = {
+										["Enabled"] = true,
+										["Duration"] = 1,
+										["Animation"] = "Flash",
+										["Times"] = 3,
+									},
+									["ContainerVisibility"] = {
+										["Enabled"] = true,
+										["InvisibleAlpha"] = 0.6,
+										["Animation"] = "Fade",
+										["Duration"] = 0.5,
+										["MouseEventsWhenInactive"] = false,
 									},
 								},
 								["Sources"] = {
@@ -1195,18 +878,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
-														["Operator"] = "Equal",
-														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
+														["Subject"] = "Type",
+														["Operator"] = "Equal",
 													}, -- [1]
 													{
-														["Operator"] = "Equal",
-														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "None",
 														},
+														["Subject"] = "Classification",
+														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -1222,18 +905,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
-														["Operator"] = "Equal",
-														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
+														["Subject"] = "Type",
+														["Operator"] = "Equal",
 													}, -- [1]
 													{
-														["Operator"] = "Equal",
-														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "Magic",
 														},
+														["Subject"] = "Classification",
+														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -1249,18 +932,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
-														["Operator"] = "Equal",
-														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
+														["Subject"] = "Type",
+														["Operator"] = "Equal",
 													}, -- [1]
 													{
-														["Operator"] = "Equal",
-														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "Curse",
 														},
+														["Subject"] = "Classification",
+														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -1276,18 +959,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
-														["Operator"] = "Equal",
-														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
+														["Subject"] = "Type",
+														["Operator"] = "Equal",
 													}, -- [1]
 													{
-														["Operator"] = "Equal",
-														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "Disease",
 														},
+														["Subject"] = "Classification",
+														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -1303,18 +986,18 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
-														["Operator"] = "Equal",
-														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HARMFUL",
 														},
+														["Subject"] = "Type",
+														["Operator"] = "Equal",
 													}, -- [1]
 													{
-														["Operator"] = "Equal",
-														["Subject"] = "Classification",
 														["Args"] = {
 															["String"] = "Poison",
 														},
+														["Subject"] = "Classification",
+														["Operator"] = "Equal",
 													}, -- [2]
 												}, -- [1]
 											},
@@ -1330,11 +1013,11 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
-														["Operator"] = "Equal",
-														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "HELPFUL",
 														},
+														["Subject"] = "Type",
+														["Operator"] = "Equal",
 													}, -- [1]
 												}, -- [1]
 											},
@@ -1350,11 +1033,11 @@ local function CreateConfig(opt)
 											["Groups"] = {
 												{
 													{
-														["Operator"] = "Equal",
-														["Subject"] = "Type",
 														["Args"] = {
 															["String"] = "WEAPON",
 														},
+														["Subject"] = "Type",
+														["Operator"] = "Equal",
 													}, -- [1]
 												}, -- [1]
 											},
@@ -1365,29 +1048,29 @@ local function CreateConfig(opt)
 									["Groups"] = {
 										{
 											{
+												["Operator"] = "Equal",
+												["Subject"] = "SpellId",
 												["Args"] = {
 													["SpellId"] = "32216",
 												},
-												["Subject"] = "SpellId",
-												["Operator"] = "Equal",
 											}, -- [1]
 										}, -- [1]
 										{
 											{
+												["Operator"] = "Equal",
+												["Subject"] = "SpellId",
 												["Args"] = {
 													["SpellId"] = "122510",
 												},
-												["Subject"] = "SpellId",
-												["Operator"] = "Equal",
 											}, -- [1]
 										}, -- [2]
 										{
 											{
+												["Operator"] = "Equal",
+												["Subject"] = "SpellId",
 												["Args"] = {
 													["SpellId"] = "190456",
 												},
-												["Subject"] = "SpellId",
-												["Operator"] = "Equal",
 											}, -- [1]
 										}, -- [3]
 										{
@@ -1399,9 +1082,9 @@ local function CreateConfig(opt)
 								},
 								["Location"] = {
 									["OffsetX"] = -174.333541870117,
+									["RelativePoint"] = "BOTTOM",
 									["OffsetY"] = 245.078765869141,
 									["FramePoint"] = "BOTTOM",
-									["RelativePoint"] = "BOTTOM",
 								},
 								["Name"] = "Procs",
 								["Visibility"] = {
@@ -1411,30 +1094,23 @@ local function CreateConfig(opt)
 									["VisibleWhenNot"] = {
 									},
 								},
-								["Animations"] = {
-									["ContainerVisibility"] = {
-										["Enabled"] = true,
-										["InvisibleAlpha"] = 0.6,
-										["Animation"] = "Fade",
-										["Duration"] = 0.5,
-										["MouseEventsWhenInactive"] = false,
-									},
-									["AuraExpiring"] = {
-										["Enabled"] = true,
-										["Duration"] = 1,
-										["Times"] = 3,
-										["Animation"] = "Flash",
-									},
-									["AuraChanging"] = {
-										["Enabled"] = true,
-										["Duration"] = 0.3,
-										["Scale"] = 2.5,
-										["Animation"] = "Popup",
-									},
-									["AuraNew"] = {
-										["Enabled"] = true,
-										["Duration"] = 0.5,
-										["Animation"] = "FadeIn",
+								["Order"] = {
+									["Expert"] = false,
+									["Predefined"] = "NoTimeTimeLeftDesc",
+									["Rules"] = {
+										{
+											["Args"] = {
+												["Float"] = 0,
+											},
+											["Subject"] = "ExpirationTime",
+											["Operator"] = "First",
+										}, -- [1]
+										{
+											["Args"] = {
+											},
+											["Subject"] = "ExpirationTime",
+											["Operator"] = "NumberDesc",
+										}, -- [2]
 									},
 								},
 							},
@@ -1523,101 +1199,16 @@ local function CreateConfig(opt)
 					["LibDualSpec-1.0"] = {
 					},
 				},
+				["profileKeys"] = {
+				},
 				["global"] = {
 					["enableOpacityWorkaround"] = true,
-				},
-				["profileKeys"] = {
 				},
 				["profiles"] = {
 					["Junior"] = {
 						["numBars"] = 3,
+						["locked"] = true,
 						["plugins"] = {
-							["launcher"] = {
-								["PitBull4"] = {
-									["area"] = "right",
-									["pos"] = 1,
-									["bar"] = 3,
-								},
-								["MinimapButtonFrame"] = {
-									["enabled"] = false,
-									["pos"] = 5,
-								},
-								["Rematch"] = {
-									["area"] = "right",
-									["pos"] = 5,
-									["bar"] = 3,
-								},
-								["Bazooka"] = {
-									["enabled"] = false,
-								},
-								["Prat"] = {
-									["enabled"] = false,
-									["pos"] = 6,
-								},
-								["BeanCounter"] = {
-									["pos"] = 1,
-								},
-								["Skinner"] = {
-									["pos"] = 5,
-								},
-								["SavedInstances"] = {
-									["area"] = "right",
-									["pos"] = 4,
-									["bar"] = 3,
-								},
-								["TradeSkillMasterMinimapIcon"] = {
-									["enabled"] = false,
-									["pos"] = 1,
-								},
-								["Informant"] = {
-									["pos"] = 7,
-								},
-								["RaidAchievement"] = {
-									["pos"] = 6,
-								},
-								["ChatAlerts"] = {
-									["enabled"] = false,
-									["pos"] = 7,
-								},
-								["AutoRoll"] = {
-									["area"] = "right",
-									["pos"] = 3,
-									["bar"] = 3,
-								},
-								["TradeSkillMaster"] = {
-									["enabled"] = false,
-									["pos"] = 4,
-								},
-								["AtlasLoot"] = {
-									["pos"] = 6,
-								},
-								["Dominos"] = {
-									["area"] = "right",
-									["pos"] = 2,
-									["bar"] = 3,
-								},
-								["Auc-Util-AutoMagic"] = {
-									["pos"] = 6,
-								},
-								["LootAppraiser"] = {
-									["pos"] = 6,
-								},
-								["Enchantrix"] = {
-									["pos"] = 2,
-								},
-								["Auc-Util-SearchUI"] = {
-									["pos"] = 4,
-								},
-								["AucAdvanced"] = {
-									["pos"] = 8,
-								},
-								["BagnonLauncher"] = {
-									["pos"] = 6,
-								},
-								["Masque"] = {
-									["enabled"] = false,
-								},
-							},
 							["data source"] = {
 								["Calendar"] = {
 									["showIcon"] = false,
@@ -1635,27 +1226,27 @@ local function CreateConfig(opt)
 								["iCPU"] = {
 									["stripColors"] = false,
 									["showIcon"] = false,
-									["pos"] = 20,
 									["bar"] = 2,
+									["pos"] = 20,
 								},
 								["Artifact"] = {
-									["stripColors"] = false,
+									["showValue"] = false,
 									["showIcon"] = false,
 									["area"] = "cleft",
 									["alignment"] = "LEFT",
-									["pos"] = 1,
-									["showValue"] = false,
 									["showSuffix"] = true,
+									["stripColors"] = false,
+									["pos"] = 1,
 								},
 								["Memory usage"] = {
 									["enabled"] = false,
-									["pos"] = 13,
 									["bar"] = 2,
+									["pos"] = 13,
 								},
 								["Reputation"] = {
 									["enabled"] = false,
-									["pos"] = 13,
 									["bar"] = 2,
+									["pos"] = 13,
 								},
 								["GC-Farms"] = {
 									["pos"] = 12,
@@ -1670,8 +1261,8 @@ local function CreateConfig(opt)
 								},
 								["BagSyncLDB"] = {
 									["showText"] = false,
-									["pos"] = 7,
 									["bar"] = 3,
+									["pos"] = 7,
 								},
 								["RepCalc"] = {
 									["pos"] = 12,
@@ -1686,13 +1277,13 @@ local function CreateConfig(opt)
 								},
 								["Latency"] = {
 									["area"] = "left",
-									["pos"] = 33,
 									["bar"] = 2,
+									["pos"] = 33,
 								},
 								["WoWToken"] = {
 									["area"] = "left",
-									["pos"] = 20,
 									["bar"] = 3,
+									["pos"] = 20,
 								},
 								["SorhaQuestLog"] = {
 									["enabled"] = false,
@@ -1701,8 +1292,8 @@ local function CreateConfig(opt)
 								["iMoney"] = {
 									["area"] = "left",
 									["enabled"] = false,
-									["pos"] = 25,
 									["bar"] = 2,
+									["pos"] = 25,
 								},
 								["WorldQuests"] = {
 									["showIcon"] = false,
@@ -1712,28 +1303,28 @@ local function CreateConfig(opt)
 								},
 								["Speed"] = {
 									["enabled"] = false,
-									["pos"] = 31,
 									["bar"] = 2,
+									["pos"] = 31,
 								},
 								["Traffic"] = {
 									["enabled"] = false,
-									["pos"] = 29,
 									["bar"] = 2,
+									["pos"] = 29,
 								},
 								["O Item Level"] = {
 									["area"] = "center",
-									["pos"] = 1,
 									["bar"] = 2,
+									["pos"] = 1,
 								},
 								["FPS"] = {
 									["area"] = "left",
-									["pos"] = 34,
 									["bar"] = 2,
+									["pos"] = 34,
 								},
 								["GPS"] = {
 									["enabled"] = false,
-									["pos"] = 34,
 									["bar"] = 2,
+									["pos"] = 34,
 								},
 								["LDB_WhisperPop"] = {
 									["pos"] = 23,
@@ -1741,8 +1332,8 @@ local function CreateConfig(opt)
 								["Memory"] = {
 									["manualTooltip"] = false,
 									["enabled"] = false,
-									["pos"] = 1,
 									["bar"] = 2,
+									["pos"] = 1,
 								},
 								["Broker_GarrisonMission"] = {
 									["enabled"] = false,
@@ -1757,8 +1348,8 @@ local function CreateConfig(opt)
 								},
 								["TokenPrice"] = {
 									["area"] = "left",
-									["pos"] = 29,
 									["bar"] = 3,
+									["pos"] = 29,
 								},
 								["Broker_GarrisonOrderhall"] = {
 									["stripColors"] = false,
@@ -1770,8 +1361,8 @@ local function CreateConfig(opt)
 								["Broker_Cash"] = {
 									["showIcon"] = false,
 									["area"] = "left",
-									["pos"] = 20,
 									["bar"] = 2,
+									["pos"] = 20,
 								},
 								["Broker_GarrisonBuilding"] = {
 									["enabled"] = false,
@@ -1779,63 +1370,70 @@ local function CreateConfig(opt)
 								},
 								["Achievements"] = {
 									["enabled"] = false,
-									["pos"] = 9,
 									["bar"] = 2,
+									["pos"] = 9,
 								},
 								["Gold"] = {
 									["useLabelAsTitle"] = false,
 									["area"] = "left",
 									["alignment"] = "LEFT",
-									["pos"] = 28,
 									["bar"] = 2,
+									["pos"] = 28,
+								},
+								["m4xilvlBroker"] = {
+									["showLabel"] = true,
+									["showIcon"] = false,
+									["area"] = "center",
+									["bar"] = 2,
+									["pos"] = 1,
 								},
 								["Surprise"] = {
 									["enabled"] = false,
-									["pos"] = 12,
 									["bar"] = 2,
+									["pos"] = 12,
 								},
 								["Broker Currency"] = {
 									["pos"] = 11,
 								},
-								["Durability"] = {
-									["enabled"] = false,
+								["Broker_MicroMenu"] = {
+									["area"] = "left",
 									["pos"] = 3,
 								},
-								["Stuff"] = {
+								["Follower"] = {
 									["enabled"] = false,
-									["showText"] = false,
-									["pos"] = 35,
+									["pos"] = 40,
 								},
 								["XP"] = {
 									["enabled"] = false,
-									["pos"] = 43,
 									["bar"] = 2,
+									["pos"] = 43,
 								},
 								["Details"] = {
 									["enabled"] = false,
-									["pos"] = 4,
 									["bar"] = 2,
+									["pos"] = 4,
 								},
 								["DetailsStreamer"] = {
 									["enabled"] = false,
-									["pos"] = 6,
 									["bar"] = 3,
+									["pos"] = 6,
 								},
-								["Friends"] = {
+								["Increasing rate"] = {
 									["enabled"] = false,
-									["pos"] = 30,
+									["pos"] = 18,
 								},
-								["Artifact weapon"] = {
-									["area"] = "left",
+								["Broker_GotMail"] = {
 									["enabled"] = false,
+									["pos"] = 24,
 								},
 								["Equipment"] = {
 									["enabled"] = false,
-									["pos"] = 44,
 									["bar"] = 2,
+									["pos"] = 44,
 								},
-								["Quest Log"] = {
-									["pos"] = 17,
+								["Mail"] = {
+									["bar"] = 3,
+									["pos"] = 26,
 								},
 								["Archaeology"] = {
 									["enabled"] = false,
@@ -1845,30 +1443,38 @@ local function CreateConfig(opt)
 									["enabled"] = false,
 									["pos"] = 15,
 								},
-								["ClassSpecs"] = {
+								["Tanaan Jungle Dailies"] = {
 									["enabled"] = false,
-									["pos"] = 23,
+									["pos"] = 8,
 								},
-								["Broker_Wallet"] = {
-									["pos"] = 1,
+								["Quest Log"] = {
+									["pos"] = 17,
 								},
 								["Tracking"] = {
 									["enabled"] = false,
-									["pos"] = 18,
 									["bar"] = 4,
+									["pos"] = 18,
 								},
 								["Class Hall"] = {
 									["enabled"] = false,
-									["pos"] = 28,
 									["bar"] = 4,
+									["pos"] = 28,
 								},
 								["iGuild"] = {
-									["pos"] = 22,
 									["bar"] = 4,
+									["pos"] = 22,
 								},
 								["Skada"] = {
 									["enabled"] = false,
 									["pos"] = 1,
+								},
+								["Frenemy"] = {
+									["enabled"] = false,
+									["pos"] = 26,
+								},
+								["BugSack"] = {
+									["area"] = "left",
+									["pos"] = 4,
 								},
 								["CurrencyTracking"] = {
 									["showIcon"] = false,
@@ -1876,77 +1482,25 @@ local function CreateConfig(opt)
 									["stripColors"] = false,
 									["pos"] = 21,
 								},
-								["BugSack"] = {
-									["area"] = "left",
-									["pos"] = 4,
-								},
-								["Frenemy"] = {
-									["enabled"] = false,
-									["pos"] = 26,
-								},
 								["Ships"] = {
 									["enabled"] = false,
-									["pos"] = 22,
 									["bar"] = 2,
+									["pos"] = 22,
 								},
 								["BrokerMemory"] = {
 									["enabled"] = false,
+									["bar"] = 2,
 									["pos"] = 18,
-									["bar"] = 2,
 								},
-								["GuildLog"] = {
+								["Missions"] = {
 									["enabled"] = false,
-									["pos"] = 25,
 									["bar"] = 2,
+									["pos"] = 37,
 								},
 								["Framerate"] = {
 									["enabled"] = false,
-									["pos"] = 11,
 									["bar"] = 2,
-								},
-								["GC-Missions"] = {
-									["pos"] = 18,
-								},
-								["Volume"] = {
-									["enabled"] = false,
 									["pos"] = 11,
-								},
-								["iMail"] = {
-									["pos"] = 21,
-									["bar"] = 3,
-								},
-								["Clock"] = {
-									["enabled"] = false,
-									["pos"] = 27,
-								},
-								["iFriends"] = {
-									["pos"] = 19,
-									["bar"] = 4,
-								},
-								["ChatChannels"] = {
-									["enabled"] = false,
-									["pos"] = 39,
-								},
-								["Artifact Power"] = {
-									["enabled"] = false,
-									["pos"] = 2,
-									["bar"] = 4,
-								},
-								["Guild"] = {
-									["pos"] = 5,
-								},
-								["Game Menu"] = {
-									["enabled"] = false,
-									["pos"] = 24,
-									["bar"] = 2,
-								},
-								["LootedItemValue"] = {
-									["enabled"] = false,
-									["pos"] = 22,
-								},
-								["IncentiveProgram"] = {
-									["area"] = "left",
-									["pos"] = 7,
 								},
 								["m4xArtifactBroker"] = {
 									["showLabel"] = true,
@@ -1956,35 +1510,78 @@ local function CreateConfig(opt)
 									["showValue"] = true,
 									["pos"] = 1,
 								},
-								["Missions"] = {
+								["Volume"] = {
 									["enabled"] = false,
-									["pos"] = 37,
+									["pos"] = 11,
+								},
+								["iMail"] = {
+									["bar"] = 3,
+									["pos"] = 21,
+								},
+								["Clock"] = {
+									["enabled"] = false,
+									["pos"] = 27,
+								},
+								["iFriends"] = {
+									["bar"] = 4,
+									["pos"] = 19,
+								},
+								["ChatChannels"] = {
+									["enabled"] = false,
+									["pos"] = 39,
+								},
+								["Game Menu"] = {
+									["enabled"] = false,
 									["bar"] = 2,
+									["pos"] = 24,
+								},
+								["Guild"] = {
+									["pos"] = 5,
+								},
+								["Artifact Power"] = {
+									["enabled"] = false,
+									["bar"] = 4,
+									["pos"] = 2,
+								},
+								["LootedItemValue"] = {
+									["enabled"] = false,
+									["pos"] = 22,
+								},
+								["IncentiveProgram"] = {
+									["area"] = "left",
+									["pos"] = 7,
+								},
+								["GC-Missions"] = {
+									["pos"] = 18,
+								},
+								["GuildLog"] = {
+									["enabled"] = false,
+									["bar"] = 2,
+									["pos"] = 25,
 								},
 								["Garrison"] = {
 									["enabled"] = false,
-									["pos"] = 32,
 									["bar"] = 2,
+									["pos"] = 32,
 								},
 								["System"] = {
-									["pos"] = 1,
 									["bar"] = 4,
+									["pos"] = 1,
 								},
-								["Tanaan Jungle Dailies"] = {
+								["ClassSpecs"] = {
 									["enabled"] = false,
-									["pos"] = 8,
+									["pos"] = 23,
 								},
-								["Mail"] = {
-									["pos"] = 26,
-									["bar"] = 3,
+								["Broker_Wallet"] = {
+									["pos"] = 1,
 								},
-								["Broker_GotMail"] = {
+								["Artifact weapon"] = {
+									["area"] = "left",
 									["enabled"] = false,
-									["pos"] = 24,
 								},
-								["Increasing rate"] = {
+								["Friends"] = {
 									["enabled"] = false,
-									["pos"] = 18,
+									["pos"] = 30,
 								},
 								["Professions"] = {
 									["enabled"] = false,
@@ -1993,17 +1590,103 @@ local function CreateConfig(opt)
 								["GC-WorkOrders"] = {
 									["pos"] = 36,
 								},
-								["Follower"] = {
+								["Stuff"] = {
 									["enabled"] = false,
-									["pos"] = 40,
+									["showText"] = false,
+									["pos"] = 35,
 								},
-								["Broker_MicroMenu"] = {
-									["area"] = "left",
+								["Durability"] = {
+									["enabled"] = false,
 									["pos"] = 3,
 								},
 							},
+							["launcher"] = {
+								["PitBull4"] = {
+									["area"] = "right",
+									["bar"] = 3,
+									["pos"] = 1,
+								},
+								["MinimapButtonFrame"] = {
+									["enabled"] = false,
+									["pos"] = 5,
+								},
+								["Rematch"] = {
+									["area"] = "right",
+									["bar"] = 3,
+									["pos"] = 5,
+								},
+								["Bazooka"] = {
+									["enabled"] = false,
+								},
+								["Prat"] = {
+									["enabled"] = false,
+									["pos"] = 6,
+								},
+								["BeanCounter"] = {
+									["pos"] = 1,
+								},
+								["Skinner"] = {
+									["pos"] = 5,
+								},
+								["SavedInstances"] = {
+									["area"] = "right",
+									["bar"] = 3,
+									["pos"] = 4,
+								},
+								["TradeSkillMasterMinimapIcon"] = {
+									["enabled"] = false,
+									["pos"] = 1,
+								},
+								["Informant"] = {
+									["pos"] = 7,
+								},
+								["Masque"] = {
+									["enabled"] = false,
+								},
+								["ChatAlerts"] = {
+									["enabled"] = false,
+									["pos"] = 7,
+								},
+								["AutoRoll"] = {
+									["area"] = "right",
+									["bar"] = 3,
+									["pos"] = 3,
+								},
+								["TradeSkillMaster"] = {
+									["enabled"] = false,
+									["pos"] = 4,
+								},
+								["Auc-Util-SearchUI"] = {
+									["pos"] = 4,
+								},
+								["Dominos"] = {
+									["area"] = "right",
+									["bar"] = 3,
+									["pos"] = 2,
+								},
+								["Enchantrix"] = {
+									["pos"] = 2,
+								},
+								["LootAppraiser"] = {
+									["pos"] = 6,
+								},
+								["Auc-Util-AutoMagic"] = {
+									["pos"] = 6,
+								},
+								["AtlasLoot"] = {
+									["pos"] = 6,
+								},
+								["AucAdvanced"] = {
+									["pos"] = 8,
+								},
+								["BagnonLauncher"] = {
+									["pos"] = 6,
+								},
+								["RaidAchievement"] = {
+									["pos"] = 6,
+								},
+							},
 						},
-						["locked"] = true,
 						["bars"] = {
 							{
 								["bgInset"] = 4,
@@ -2017,9 +1700,9 @@ local function CreateConfig(opt)
 								["attach"] = "none",
 								["fontSize"] = 16,
 								["bgColor"] = {
-									["r"] = 0.0823529411764706,
-									["g"] = 0.0823529411764706,
 									["b"] = 0.0823529411764706,
+									["g"] = 0.0823529411764706,
+									["r"] = 0.0823529411764706,
 								},
 							}, -- [1]
 							{
@@ -2037,24 +1720,24 @@ local function CreateConfig(opt)
 								["attach"] = "none",
 								["fontSize"] = 16,
 								["bgColor"] = {
-									["r"] = 0.0823529411764706,
-									["g"] = 0.0823529411764706,
 									["b"] = 0.0823529411764706,
+									["g"] = 0.0823529411764706,
+									["r"] = 0.0823529411764706,
 								},
 							}, -- [2]
 							{
 								["fadeAlpha"] = 0,
 								["bgInset"] = 4,
 								["y"] = 0.142159909009933,
-								["x"] = 0.00967439822852612,
+								["relPoint"] = "TOPRIGHT",
 								["frameWidth"] = 366,
 								["pos"] = 0,
-								["relPoint"] = "TOPRIGHT",
+								["x"] = 0.00967439822852612,
 								["point"] = "TOPRIGHT",
 								["bgColor"] = {
-									["r"] = 0.0823529411764706,
-									["g"] = 0.0823529411764706,
 									["b"] = 0.0823529411764706,
+									["g"] = 0.0823529411764706,
+									["r"] = 0.0823529411764706,
 								},
 								["frameHeight"] = 20.0000038146973,
 								["fontSize"] = 16,
@@ -6459,6 +6142,8 @@ local function CreateConfig(opt)
 			SexyMap2DB[name .. "-" .. realm] = "global";
 		else
 			SexyMap2DB = {
+				["presets"] = {
+				},
 				["global"] = {
 					["ping"] = {
 						["showPing"] = true,
@@ -6476,18 +6161,41 @@ local function CreateConfig(opt)
 						},
 						["y"] = 82.3403930664063,
 					},
-					["core"] = {
-						["clamp"] = false,
-						["point"] = "TOPRIGHT",
-						["relpoint"] = "TOPRIGHT",
-						["autoZoom"] = 5,
-						["northTag"] = true,
-						["y"] = -39.0409851074219,
-						["x"] = -27.9358673095703,
-						["lock"] = true,
-						["scale"] = 1.42,
-						["shape"] = "SPELLS\\T_VFX_BORDER",
-						["rightClickToConfig"] = true,
+					["buttons"] = {
+						["TEMP2"] = true,
+						["radius"] = -15,
+						["lockDragging"] = false,
+						["allowDragging"] = true,
+						["visibilitySettings"] = {
+							["LibDBIcon10_AutoRoll"] = "never",
+							["LibDBIcon10_PitBull4"] = "never",
+							["LibDBIcon10_Skinner"] = "never",
+							["LibDBIcon10_SavedInstances"] = "never",
+							["MiniMapInstanceDifficulty"] = "hover",
+							["MinimapZoneTextButton"] = "always",
+							["MiniMapMailFrame"] = "never",
+							["TimeManagerClockButton"] = "always",
+							["LibDBIcon10_Dominos"] = "never",
+							["MiniMapWorldMapButton"] = "never",
+							["MinimapZoomOut"] = "never",
+							["QueueStatusMinimapButton"] = "always",
+							["LibDBIcon10_DetailsStreamer"] = "never",
+							["DBMMinimapButton"] = "never",
+							["GarrisonLandingPageMinimapButton"] = "hover",
+							["LibDBIcon10_Details"] = "never",
+							["GuildInstanceDifficulty"] = "hover",
+							["MinimapZoomIn"] = "never",
+						},
+						["dragPositions"] = {
+							["MiniMapInstanceDifficulty"] = -36.5403889413214,
+							["MiniMapMailFrame"] = -46.897539427866,
+							["QueueStatusMinimapButton"] = -42.8784303730719,
+							["MiniMapTracking"] = 19.3185809503897,
+							["GuildInstanceDifficulty"] = -31.5445051689238,
+							["GarrisonLandingPageMinimapButton"] = -1.2127520661487,
+						},
+						["TEMP"] = true,
+						["controlVisibility"] = true,
 					},
 					["movers"] = {
 						["enabled"] = false,
@@ -6510,17 +6218,17 @@ local function CreateConfig(opt)
 					["clock"] = {
 						["bgColor"] = {
 							["a"] = 1,
-							["r"] = 0,
-							["g"] = 0,
 							["b"] = 0,
+							["g"] = 0,
+							["r"] = 0,
 						},
 						["fontColor"] = {
 						},
 						["borderColor"] = {
 							["a"] = 1,
-							["r"] = 0,
-							["g"] = 0,
 							["b"] = 0,
+							["g"] = 0,
+							["r"] = 0,
 						},
 						["xOffset"] = 0,
 						["yOffset"] = 15,
@@ -6533,9 +6241,9 @@ local function CreateConfig(opt)
 							["show"] = true,
 							["textureColor"] = {
 								["a"] = 0.650000005960465,
-								["b"] = 0.0823529411764706,
-								["g"] = 0.0823529411764706,
 								["r"] = 0.0823529411764706,
+								["g"] = 0.0823529411764706,
+								["b"] = 0.0823529411764706,
 							},
 							["settings"] = {
 								["edgeSize"] = 28,
@@ -6551,9 +6259,9 @@ local function CreateConfig(opt)
 							},
 							["borderColor"] = {
 								["a"] = 0,
-								["b"] = 0.207843137254902,
-								["g"] = 0.215686274509804,
 								["r"] = 0.290196078431373,
+								["g"] = 0.215686274509804,
+								["b"] = 0.207843137254902,
 							},
 							["scale"] = 1.25,
 						},
@@ -6562,61 +6270,36 @@ local function CreateConfig(opt)
 					["zonetext"] = {
 						["bgColor"] = {
 							["a"] = 1,
-							["r"] = 0,
-							["g"] = 0,
 							["b"] = 0,
+							["g"] = 0,
+							["r"] = 0,
 						},
 						["fontColor"] = {
 						},
 						["borderColor"] = {
 							["a"] = 1,
-							["r"] = 0,
-							["g"] = 0,
 							["b"] = 0,
+							["g"] = 0,
+							["r"] = 0,
 						},
 						["xOffset"] = 0,
-						["width"] = 142,
-						["fontsize"] = 7,
 						["yOffset"] = 0,
+						["fontsize"] = 7,
+						["width"] = 142,
 					},
-					["buttons"] = {
-						["lockDragging"] = false,
-						["radius"] = 10,
-						["TEMP2"] = true,
-						["allowDragging"] = true,
-						["visibilitySettings"] = {
-							["LibDBIcon10_AutoRoll"] = "never",
-							["LibDBIcon10_PitBull4"] = "never",
-							["LibDBIcon10_Skinner"] = "never",
-							["LibDBIcon10_SavedInstances"] = "never",
-							["MiniMapInstanceDifficulty"] = "hover",
-							["MinimapZoneTextButton"] = "always",
-							["MinimapZoomIn"] = "never",
-							["MiniMapWorldMapButton"] = "never",
-							["LibDBIcon10_Dominos"] = "never",
-							["TimeManagerClockButton"] = "always",
-							["MinimapZoomOut"] = "never",
-							["LibDBIcon10_Details"] = "never",
-							["DBMMinimapButton"] = "never",
-							["LibDBIcon10_DetailsStreamer"] = "never",
-							["GarrisonLandingPageMinimapButton"] = "hover",
-							["QueueStatusMinimapButton"] = "always",
-							["GuildInstanceDifficulty"] = "hover",
-							["MiniMapMailFrame"] = "never",
-						},
-						["dragPositions"] = {
-							["MiniMapInstanceDifficulty"] = -36.5403889413214,
-							["MiniMapMailFrame"] = -46.897539427866,
-							["QueueStatusMinimapButton"] = -14.8605489558136,
-							["MiniMapTracking"] = 18.0711845378894,
-							["GuildInstanceDifficulty"] = -31.5445051689238,
-							["GarrisonLandingPageMinimapButton"] = 2.24409634459895,
-						},
-						["TEMP"] = true,
-						["controlVisibility"] = true,
+					["core"] = {
+						["clamp"] = false,
+						["point"] = "TOPRIGHT",
+						["relpoint"] = "TOPRIGHT",
+						["autoZoom"] = 5,
+						["northTag"] = true,
+						["y"] = -37.599666595459,
+						["x"] = -4.87561702728272,
+						["lock"] = true,
+						["scale"] = 1.42,
+						["shape"] = "SPELLS\\T_VFX_BORDER",
+						["rightClickToConfig"] = true,
 					},
-				},
-				["presets"] = {
 				},
 			};
 
@@ -6914,71 +6597,65 @@ local function CreateConfig(opt)
 						},
 						["profiles"] = {
 							["Junior"] = {
-								["MinionWidth"] = 240,
+								["ClickBinds"] = {
+									["AbandonQuest"] = "RIGHT_CLICK",
+									["HideShowQuest"] = "LEFT_ALT_CTRL_CLICK",
+								},
 								["Colours"] = {
 									["HeaderColour"] = {
-										["b"] = 0.764705882352941,
-										["g"] = 0.52156862745098,
 										["r"] = 0.266666666666667,
+										["g"] = 0.52156862745098,
+										["b"] = 0.764705882352941,
 									},
 									["ObjectiveTitleColour"] = {
-										["b"] = 0.729411764705882,
-										["g"] = 0.870588235294118,
 										["r"] = 0.827450980392157,
+										["g"] = 0.870588235294118,
+										["b"] = 0.729411764705882,
 									},
 									["InfoColour"] = {
 										["g"] = 0.741176470588235,
 										["b"] = 0.372549019607843,
 									},
 									["Objective50PlusColour"] = {
-										["b"] = 0.305882352941177,
-										["g"] = 0.596078431372549,
 										["r"] = 0.901960784313726,
+										["g"] = 0.596078431372549,
+										["b"] = 0.305882352941177,
 									},
 									["Objective00PlusColour"] = {
-										["b"] = 0.0313725490196078,
 										["r"] = 0.619607843137255,
+										["b"] = 0.0313725490196078,
 									},
 									["MinionBackGroundColour"] = {
 										["a"] = 0.76264925301075,
-										["b"] = 0,
-										["g"] = 0,
 										["r"] = 0,
+										["g"] = 0,
+										["b"] = 0,
 									},
 									["Objective25PlusColour"] = {
-										["b"] = 0.105882352941176,
-										["g"] = 0.282352941176471,
 										["r"] = 0.811764705882353,
+										["g"] = 0.282352941176471,
+										["b"] = 0.105882352941176,
 									},
 									["ObjectiveTooltipTextColour"] = {
-										["b"] = 0.741176470588235,
-										["g"] = 0.749019607843137,
 										["r"] = 0.184313725490196,
+										["g"] = 0.749019607843137,
+										["b"] = 0.741176470588235,
 									},
 									["MinionBorderColour"] = {
-										["a"] = 1,
-										["r"] = 0,
-										["g"] = 0,
 										["b"] = 0,
+										["g"] = 0,
+										["r"] = 0,
 									},
 								},
 								["MinionLocation"] = {
-									["Y"] = 249.860198974609,
-									["X"] = -20.1165676116943,
+									["Y"] = 253.953399658203,
+									["X"] = -16.022819519043,
 									["Point"] = "RIGHT",
 									["RelativePoint"] = "RIGHT",
 								},
 								["sink20OutputSink"] = "None",
 								["MinionLocked"] = true,
 								["UseStatusBars"] = false,
-								["MinionCollapseToLeft"] = true,
-								["Notifications"] = {
-									["DisableToasts"] = true,
-								},
-								["ClickBinds"] = {
-									["AbandonQuest"] = "RIGHT_CLICK",
-									["HideShowQuest"] = "LEFT_ALT_CTRL_CLICK",
-								},
 								["Fonts"] = {
 									["QuestFontShadowed"] = false,
 									["HeaderFontSize"] = 13,
@@ -6989,33 +6666,37 @@ local function CreateConfig(opt)
 									["MinionTitleFontShadowed"] = false,
 									["HeaderFontShadowed"] = false,
 								},
+								["Notifications"] = {
+									["DisableToasts"] = true,
+								},
+								["MinionWidth"] = 185,
+								["MinionCollapseToLeft"] = true,
 							},
 						},
 					},
-					["AchievementTracker"] = {
+					["ScenarioTracker"] = {
 						["profiles"] = {
 							["Junior"] = {
-								["MinionWidth"] = 240,
-								["MinionLocked"] = true,
-								["Fonts"] = {
-									["AchievementTitleFontSize"] = 13,
-									["MinionTitleFontSize"] = 13,
-									["AchievementObjectiveFontSize"] = 13,
-								},
-								["PaddingAfterAchievement"] = 0,
-								["AutoHideTitle"] = true,
-								["MinionParent"] = "SQLRemoteQuestsMinionBottom",
-								["MinionLocation"] = {
-									["Y"] = 47.073169708252,
-									["X"] = -139.173004150391,
-								},
+								["MinionWidth"] = 185,
 								["Colours"] = {
 									["MinionBackGroundColour"] = {
-										["a"] = 0.610000014305115,
-										["b"] = 0,
-										["g"] = 0,
 										["r"] = 0,
+										["g"] = 0,
+										["b"] = 0,
 									},
+								},
+								["Fonts"] = {
+									["ScenarioHeaderFontSize"] = 13,
+									["ScenarioTaskFontSize"] = 13,
+									["MinionTitleFontSize"] = 13,
+									["ScenarioObjectiveFontSize"] = 13,
+								},
+								["AutoHideTitle"] = true,
+								["MinionParent"] = "SQLRemoteQuestsMinionBottom",
+								["MinionLocked"] = true,
+								["MinionLocation"] = {
+									["Y"] = 95.1695785522461,
+									["X"] = -199.548583984375,
 								},
 							},
 						},
@@ -7023,54 +6704,58 @@ local function CreateConfig(opt)
 					["RemoteQuestsTracker"] = {
 						["profiles"] = {
 							["Junior"] = {
-								["MinionLocked"] = true,
+								["Colours"] = {
+									["MinionBackGroundColour"] = {
+										["a"] = 0.610000014305115,
+										["r"] = 0,
+										["g"] = 0,
+										["b"] = 0,
+									},
+									["MinionBorderColour"] = {
+										["r"] = 0,
+										["g"] = 0,
+										["b"] = 0,
+									},
+								},
 								["Fonts"] = {
 									["MinionTitleFontSize"] = 13,
 								},
 								["AutoHideTitle"] = true,
+								["MinionParent"] = "SQLQuestMinionBottom",
+								["MinionLocked"] = true,
 								["MinionLocation"] = {
 									["Y"] = 116.659507751465,
 									["X"] = -7.16335439682007,
 								},
-								["Colours"] = {
-									["MinionBackGroundColour"] = {
-										["a"] = 0.610000014305115,
-										["b"] = 0,
-										["g"] = 0,
-										["r"] = 0,
-									},
-									["MinionBorderColour"] = {
-										["a"] = 0.83657568693161,
-										["b"] = 0,
-										["g"] = 0,
-										["r"] = 0,
-									},
-								},
-								["MinionParent"] = "SQLQuestMinionBottom",
 							},
 						},
 					},
-					["ScenarioTracker"] = {
+					["AchievementTracker"] = {
 						["profiles"] = {
 							["Junior"] = {
-								["MinionLocked"] = true,
+								["MinionWidth"] = 185,
 								["Fonts"] = {
-									["ScenarioHeaderFontSize"] = 13,
-									["ScenarioObjectiveFontSize"] = 13,
+									["AchievementTitleFontSize"] = 13,
 									["MinionTitleFontSize"] = 13,
-									["ScenarioTaskFontSize"] = 13,
+									["AchievementObjectiveFontSize"] = 13,
 								},
+								["PaddingAfterAchievement"] = 0,
 								["AutoHideTitle"] = true,
 								["MinionLocation"] = {
-									["Y"] = 95.1695785522461,
-									["X"] = -199.548583984375,
+									["Y"] = 47.073169708252,
+									["X"] = -139.173004150391,
 								},
 								["Colours"] = {
+									["MinionBorderColour"] = {
+										["r"] = 0.501960784313726,
+										["g"] = 0.501960784313726,
+										["b"] = 0.501960784313726,
+									},
 									["MinionBackGroundColour"] = {
 										["a"] = 0.610000014305115,
-										["b"] = 0,
-										["g"] = 0,
 										["r"] = 0,
+										["g"] = 0,
+										["b"] = 0,
 									},
 								},
 								["MinionParent"] = "SQLRemoteQuestsMinionBottom",
@@ -7084,7 +6769,6 @@ local function CreateConfig(opt)
 					["Junior"] = {
 						["StatusBarTexture"] = "Empty",
 						["BackgroundTexture"] = "Skinner Inactive Tab",
-						["BorderTexture"] = "Skinner Border",
 						["AutoHide"] = {
 							["OnBattleground"] = "Hide",
 							["OnInstance"] = "Show",
@@ -7095,10 +6779,11 @@ local function CreateConfig(opt)
 							["OnArena"] = "Hide",
 							["OnEnterPetBattle"] = "Hide",
 						},
+						["BorderTexture"] = "Skinner Border",
 					},
 				},
 			};
-
+			
 			SorhaQuestLogDB.profileKeys[name .. " - " .. realm] = "Junior";
 		end
 	end
