@@ -1,4 +1,4 @@
-## Interface: 70100
+## Interface: 70200
 ## Title: m4x ConfigJunior
 ## Notes: Load JuniorDeBoss's Nutties UI configurations
 ## Version: @project-version@
